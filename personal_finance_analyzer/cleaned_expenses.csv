@@ -1,0 +1,13 @@
+Date,Description,Amount,Category
+2024-01-01,Amazon Purchase,50.0,Shopping
+2024-01-02,Local Grocery Store,120.5,Groceries
+2024-01-05,Cinema Ticket,15.0,Entertainment
+2024-01-07,Netflix Subscription,14.99,Entertainment
+2024-01-10,Unknown Expense,45.0,Groceries
+2024-01-12,Shell Station,55.2,Gas
+2024-01-15,Gym Membership,0.0,Health
+2024-01-20,Paycheck,2000.0,Income
+2024-01-21,Coffee Shop,5.5,Uncategorized
+2024-01-25,Phone Bill,60.0,Utilities
+2024-01-25,Unknown Expense,100.0,Uncategorized
+2024-01-30,Target Store,80.0,Shopping
