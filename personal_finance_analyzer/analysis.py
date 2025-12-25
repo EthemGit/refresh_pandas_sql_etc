@@ -8,33 +8,34 @@ Visualizing it using matplotlib in a simple bar chart.
 
 df = pd.read_csv("transactions.csv")
 
-# clean Date
-df.Date = pd.to_datetime(df.Date, format="mixed")
-df.at[5, "Date"] = pd.to_datetime("01/12/2024")
-df.Date = df["Date"].ffill()
-
-# clean amount
-df.Amount = pd.to_numeric(
-                df.Amount.replace(r"\$", "", regex=True)
-            ).fillna(0)
+# clean date
+df.Date = pd.to_datetime(arg=df.Date, format="mixed")
+df.at[5, "Date"] = pd.to_datetime("2024/01/12")
+df.Date = df.Date.ffill()
 
 # clean description
-df.Description = df.Description.fillna("Unknown Expense")
+df.Description = df["Description"].fillna("Unknown Expense")
 
-# clean Category
-df.Category = df.Category.fillna("Uncategorized").str.title()
+# clean category
+df.Category = df["Category"].str.strip().str.title()
+df.Category = df.Category.fillna("Uncategorized")
 
-# save cleaned df back to a csv
-df.to_csv("cleaned_expenses.csv", index=False)
+# clean amount
+df.Amount = df["Amount"].str.strip().str.replace('$', '', regex=False)
+df.Amount = pd.to_numeric(arg=df.Amount)
+df.Amount = df["Amount"].fillna(0)
 
-# group by category
-category_sums = df.groupby("Category")["Amount"].sum().drop("Income")
+# delete income, we only care about expenses
+df = df[df['Description'] != 'Paycheck']
 
-# create graphic
-ax = category_sums.plot(kind="bar", title="Expenses per Category")
-ax.set_xlabel("Category")
-ax.set_ylabel("Expense in $")
+category_sums = df.groupby("Category")["Amount"].sum()
+
+plot = category_sums.plot(kind="bar", title="Expenses per Category")
+plot.set_xlabel("Category")
+plot.set_ylabel("Expense in $")
 
 plt.tight_layout()
 plt.show()
 
+
+print(df)
